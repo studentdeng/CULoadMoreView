@@ -1,6 +1,5 @@
 CULoadMoreView
 ==============
-#CULoadMoreView
 
 Simple load more to  refresh view
 
@@ -17,14 +16,6 @@ Most of the codes are directly copied from their work.
 
 	    self.loadMoreView = [[[CULoadMoreView alloc] initWithScrollView:self.tableView
 	                                                           delegate:self] autorelease];
-	}
-
-	- (void)viewDidUnload
-	{
-	    [self setTableView:nil];
-	    self.loadMoreView = nil;
-	    
-	    [super viewDidUnload];
 	}
 
 	- (void)loadMoreTableFooterDidTriggerRefresh:(CULoadMoreView *)loadMoreView {
