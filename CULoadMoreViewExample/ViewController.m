@@ -20,7 +20,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+
     self.loadMoreView = [[[CULoadMoreView alloc] initWithScrollView:self.tableView
                                                            delegate:self] autorelease];
 }
@@ -67,9 +67,6 @@
     
     return cell;
 }
-
-#pragma mark -
-#pragma mark CULoadMoreViewDelegate Methods
 
 - (void)loadMoreTableFooterDidTriggerRefresh:(CULoadMoreView *)loadMoreView {
     
