@@ -79,10 +79,10 @@
 - (void)setState:(LoadMoreState)aState{	
 	switch (aState) {
 		case LoadMorePulling:
-			_statusLabel.text = NSLocalizedString(@"Release to load more...", @"Release to load more");
+			_statusLabel.text = NSLocalizedString(@"释放刷新", @"释放刷新");
 			break;
 		case LoadMoreNormal:
-			_statusLabel.text = NSLocalizedString(@"Load More...", @"Load More");
+			_statusLabel.text = NSLocalizedString(@"上拉更多...", @"上拉更多");
 			_statusLabel.hidden = NO;
 			[_activityView stopAnimating];
 			break;
@@ -237,7 +237,10 @@
         return;
     }
 
-    if (self.scrollView.contentOffset.y > (self.scrollView.contentSize.height - maxRefreshHeight) && !_loading) {
+    if (self.scrollView.contentOffset.y > (self.scrollView.contentSize.height - maxRefreshHeight) && !_loading
+        && self.scrollView.contentSize.height > maxRefreshHeight)
+    {
+        
         if ([_delegate respondsToSelector:@selector(loadMoreTableFooterDidTriggerRefresh:)])
         {
             [_delegate loadMoreTableFooterDidTriggerRefresh:self];
