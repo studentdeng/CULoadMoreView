@@ -132,54 +132,6 @@
                afterDelay:.1f];
 }
 
-#pragma mark -
-#pragma mark ScrollView Methods
-
-- (void)loadMoreScrollViewDidScroll:(UIScrollView *)scrollView {
-	if (_state == LoadMoreLoading) {
-		scrollView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 60.0f, 0.0f);
-	} else if (scrollView.isDragging) {
-        
-        int maxHeight = scrollView.frame.size.height;
-        int maxRefreshHeight = maxHeight - 60;
-		
-		if (_state == LoadMoreNormal
-                && scrollView.contentOffset.y < (scrollView.contentSize.height - maxRefreshHeight)
-                && scrollView.contentOffset.y > (scrollView.contentSize.height - maxHeight)
-                && !_loading)
-        {
-			self.frame = CGRectMake(0, scrollView.contentSize.height, self.frame.size.width, self.frame.size.height);
-			self.hidden = NO;
-		} else if (_state == LoadMoreNormal && scrollView.contentOffset.y > (scrollView.contentSize.height - maxRefreshHeight) && !_loading) {
-			[self setState:LoadMorePulling];
-		} else if (_state == LoadMorePulling && scrollView.contentOffset.y < (scrollView.contentSize.height - maxRefreshHeight) && scrollView.contentOffset.y > (scrollView.contentSize.height - maxHeight) && !_loading) {
-			[self setState:LoadMoreNormal];
-		}
-		
-		if (scrollView.contentInset.bottom != 0) {
-			scrollView.contentInset = UIEdgeInsetsZero;
-		}
-	}
-}
-
-- (void)loadMoreScrollViewDidEndDragging:(UIScrollView *)scrollView {
-    
-    int maxHeight = scrollView.frame.size.height;
-    int maxRefreshHeight = maxHeight - 60;
-	
-	if (scrollView.contentOffset.y > (scrollView.contentSize.height - maxRefreshHeight) && !_loading) {
-		if ([_delegate respondsToSelector:@selector(loadMoreTableFooterDidTriggerRefresh:)]) {
-			[_delegate loadMoreTableFooterDidTriggerRefresh:self];
-		}
-		
-		[self setState:LoadMoreLoading];
-		[UIView beginAnimations:nil context:NULL];
-		[UIView setAnimationDuration:0.2];
-		scrollView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 60.0f, 0.0f);
-		[UIView commitAnimations];
-	}
-}
-
 - (void)loadMoreScrollViewDataSourceDidFinishedLoading
 {
 	[UIView beginAnimations:nil context:NULL];
@@ -223,7 +175,12 @@
             && !_loading)
         {
 			self.frame = CGRectMake(0, self.scrollView.contentSize.height, self.frame.size.width, self.frame.size.height);
-			self.hidden = NO;
+            
+            if (self.scrollView.contentSize.height > self.scrollView.bounds.size.height) {
+                self.hidden = NO;
+            }
+            
+			
 		} else if (_state == LoadMoreNormal && self.scrollView.contentOffset.y > (self.scrollView.contentSize.height - maxRefreshHeight) && !_loading) {
 			[self setState:LoadMorePulling];
 		} else if (_state == LoadMorePulling && self.scrollView.contentOffset.y < (self.scrollView.contentSize.height - maxRefreshHeight) && self.scrollView.contentOffset.y > (self.scrollView.contentSize.height - maxHeight) && !_loading) {
