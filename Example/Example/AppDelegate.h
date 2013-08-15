@@ -1,9 +1,9 @@
 //
 //  AppDelegate.h
-//  CULoadMoreViewExample
+//  Example
 //
-//  Created by yg curer on 13-1-26.
-//  Copyright (c) 2013年 curer. All rights reserved.
+//  Created by curer on 8/15/13.
+//  Copyright (c) 2013 curer. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

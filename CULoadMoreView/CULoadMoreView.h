@@ -15,14 +15,14 @@ typedef enum{
 
 @protocol CULoadMoreViewDelegate;
 @interface CULoadMoreView : UIView {
-	id _delegate;
+	id __weak _delegate;
 	LoadMoreState _state;
 	
 	UILabel *_statusLabel;
 	UIActivityIndicatorView *_activityView;
 }
 
-@property(nonatomic,assign) id <CULoadMoreViewDelegate> delegate;
+@property(nonatomic,weak) id <CULoadMoreViewDelegate> delegate;
 
 - (id)initWithScrollView:(UIScrollView *)scrollView delegate:(id<CULoadMoreViewDelegate>)delegate;
 - (void)startLoading;

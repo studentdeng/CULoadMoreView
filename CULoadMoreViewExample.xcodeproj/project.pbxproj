@@ -15,7 +15,7 @@
 		87CE6DDD16B428150028B422 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE6DDC16B428150028B422 /* AppDelegate.m */; };
 		87CE6DE016B428150028B422 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE6DDF16B428150028B422 /* ViewController.m */; };
 		87CE6DE316B428150028B422 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87CE6DE116B428150028B422 /* ViewController.xib */; };
-		87CE6DF116B428E10028B422 /* CULoadMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE6DF016B428E10028B422 /* CULoadMoreView.m */; };
+		87CE6DF116B428E10028B422 /* CULoadMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CE6DF016B428E10028B422 /* CULoadMoreView.m */; settings = {COMPILER_FLAGS = " -fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,8 +32,8 @@
 		87CE6DDE16B428150028B422 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		87CE6DDF16B428150028B422 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		87CE6DE216B428150028B422 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
-		87CE6DEF16B428E10028B422 /* CULoadMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CULoadMoreView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		87CE6DF016B428E10028B422 /* CULoadMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CULoadMoreView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		87CE6DEF16B428E10028B422 /* CULoadMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CULoadMoreView.h; sourceTree = "<group>"; };
+		87CE6DF016B428E10028B422 /* CULoadMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CULoadMoreView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,6 +256,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CULoadMoreViewExample/CULoadMoreViewExample-Prefix.pch";
 				INFOPLIST_FILE = "CULoadMoreViewExample/CULoadMoreViewExample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -267,6 +268,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CULoadMoreViewExample/CULoadMoreViewExample-Prefix.pch";
 				INFOPLIST_FILE = "CULoadMoreViewExample/CULoadMoreViewExample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

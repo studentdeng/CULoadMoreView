@@ -12,11 +12,9 @@
 #define TEXT_COLOR	 [UIColor colorWithRed:87.0/255.0 green:108.0/255.0 blue:137.0/255.0 alpha:1.0]
 #define FLIP_ANIMATION_DURATION 0.18f
 
-#define SCROLL_HEIGHT   260
-
 @interface CULoadMoreView ()
 
-@property (nonatomic, assign) UIScrollView *scrollView;
+@property (nonatomic, weak) UIScrollView *scrollView;
 @property (nonatomic, assign) UIEdgeInsets defaultContentInset;
 @property (nonatomic, assign) BOOL loading;
 
@@ -44,13 +42,11 @@
 		label.textAlignment = UITextAlignmentCenter;
 		[self addSubview:label];
 		_statusLabel=label;
-		[label release];
 				
 		UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
 		view.frame = CGRectMake(150.0f, 20.0f, 20.0f, 20.0f);
 		[self addSubview:view];
 		_activityView = view;
-		[view release];
 		self.hidden = YES;
         
         self.loading = NO;
@@ -99,14 +95,14 @@
 
 - (void)setScrollView:(UIScrollView *)scrollView {
 	if ([_scrollView respondsToSelector:@selector(removeObserver:forKeyPath:context:)]) {
-		[_scrollView removeObserver:self forKeyPath:@"contentOffset" context:self];
+		[_scrollView removeObserver:self forKeyPath:@"contentOffset" context:(__bridge void *)(self)];
 	} else if (_scrollView) {
 		[_scrollView removeObserver:self forKeyPath:@"contentOffset"];
 	}
 	
 	_scrollView = scrollView;
 	_defaultContentInset = _scrollView.contentInset;
-	[_scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:self];
+	[_scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:(__bridge void *)(self)];
 }
 
 #pragma mark - public 
@@ -123,13 +119,7 @@
     }
     
     self.loading = NO;
-    
-    [NSObject cancelPreviousPerformRequestsWithTarget:self
-                                             selector:@selector(loadMoreScrollViewDataSourceDidFinishedLoading)
-                                               object:nil];
-    [self performSelector:@selector(loadMoreScrollViewDataSourceDidFinishedLoading)
-               withObject:nil
-               afterDelay:.1f];
+    [self loadMoreScrollViewDataSourceDidFinishedLoading];
 }
 
 - (void)loadMoreScrollViewDataSourceDidFinishedLoading
@@ -150,7 +140,7 @@
                         change:(NSDictionary *)change
                        context:(void *)context
 {
-    if (context != self) {
+    if (context != (__bridge void *)(self)) {
         return;
     }
     
@@ -160,9 +150,7 @@
     
     int maxHeight = self.scrollView.frame.size.height;
     int maxRefreshHeight = maxHeight - 60;
-    
-    // Get the offset out of the change notification
-	//CGFloat y = [[change objectForKey:NSKeyValueChangeNewKey] CGPointValue].y + _defaultContentInset.top;
+
     if (_state == LoadMoreLoading)
     {
         self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
@@ -210,18 +198,5 @@
         [UIView commitAnimations];
     }
 }
-
-#pragma mark -
-#pragma mark Dealloc
-
-- (void)dealloc {
-	_delegate=nil;
-	_activityView = nil;
-	_statusLabel = nil;
-    self.scrollView = nil;
-    
-    [super dealloc];
-}
-
 
 @end
