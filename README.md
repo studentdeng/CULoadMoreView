@@ -14,8 +14,7 @@ Most of the codes are directly copied from their work.
 	{
 	    [super viewDidLoad];
 
-	    self.loadMoreView = [[[CULoadMoreView alloc] initWithScrollView:self.tableView
-	                                                           delegate:self] autorelease];
+	    self.loadMoreView = [[CULoadMoreView alloc] initWithScrollView:self.tableView delegate:self];
 	}
 
 	- (void)loadMoreTableFooterDidTriggerRefresh:(CULoadMoreView *)loadMoreView {
